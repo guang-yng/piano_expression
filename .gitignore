@@ -1,0 +1,14 @@
+tmp
+logs
+__pycache__
+.ipynb_checkpoints
+.*.swp
+*.egg-info
+
+build
+*.c
+*.so
+
+scripts/data/data_samples/
+*.npy
+sketching_piano_expression/utils/Programs/
