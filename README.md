@@ -48,6 +48,25 @@ You can make h5 files using the following function in `make_batches.py`:
 create_h5_datasets(dataset='train', savepath='./data/data_samples')
 ```
 
+### Data Representation
+
+In dataset (train.h5)
+```
+x: note x 136 matrix containing score features.
+y: note x 4 matrix containing performance features, including velocity, duration, ioi1 and ioi2. Articulation could be calculated by dur-ioi2.
+m: note x chord matrix.
+c: note x 59 matrix. 19-23 dim is used to construct `x`` during training.
+```
+
+Model input
+```
+x: note x (136-dim vector containing score features + 4-dim vector from c in data).
+y: note x 3 matrix containing velocity, articulation and ioi (ioi1 in dataset y). Interpolated to the range of [-1, 1].
+y2: chord x 3 matrix containing chord y.
+m: note x chord matrix.
+clab: chord x 3 matrix \hat{y} predicted by 4-degree polynomial regression on (range(chord), y2)
+```
+
 ## Training 
 
 Simply run the following command:

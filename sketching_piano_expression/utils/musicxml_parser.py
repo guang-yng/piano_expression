@@ -776,7 +776,7 @@ class Direction(object): # added by DS
   def _parse(self):
     """Parse the MusicXML <direction> element."""
     direction = self.xml_direction
-    child_list = direction.find('direction-type').getchildren()
+    child_list = list(direction.find('direction-type'))
     if len(child_list) == 0:
       return
     child = child_list[0]
@@ -839,9 +839,9 @@ class Direction(object): # added by DS
     Args:
       xml_dynamics: XML element with tag type 'dynamics'.
     """
-    dynamic = xml_dynamics.getchildren()[0].tag
+    dynamic = list(xml_dynamics)[0].tag
     if dynamic == 'other-dynamics':
-      content = xml_dynamics.getchildren()[0].text
+      content = list(xml_dynamics)[0].text
       self.type = {'type':'words', 'content': content}
     else:
       self.type = {'type':'dynamic', 'content': dynamic}
@@ -1238,7 +1238,7 @@ class NoteNotations(object): # added by DS
     """Parse the MusicXML <Notations> element."""
     self.xml_notations = xml_notations
     if self.xml_notations is not None:
-      notations = self.xml_notations.getchildren()
+      notations = list(self.xml_notations)
       for child in notations:
         if child.tag == 'articulations':
           self._parse_articulations(child)
@@ -1264,7 +1264,7 @@ class NoteNotations(object): # added by DS
     Args:
       xml_articulation: XML element with tag type 'articulation'.
     """
-    tag = xml_articulation.getchildren()[0].tag
+    tag = list(xml_articulation)[0].tag
     if tag == 'accent':
       self.is_accent = True
     elif tag == 'fermata':
@@ -1285,7 +1285,7 @@ class NoteNotations(object): # added by DS
     Args:
       xml_ornaments: XML element with tag type 'ornaments'.
     """
-    children = xml_ornaments.getchildren()
+    children = list(xml_ornaments)
     for child in children:
       tag = child.tag
       if tag == 'trill-mark':
